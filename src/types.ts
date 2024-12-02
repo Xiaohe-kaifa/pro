@@ -71,10 +71,4 @@ export interface ChartPro {
   getSymbol(): SymbolInfo
   setPeriod(period: Period): void
   getPeriod(): Period
-  removeOverlay(): void
-  createOverlay(widget: object): void
-  updateData(data: object): void
-  applyNewData(data: object): void
-  getDataList(): void
-  setPrecision(pricePrecision: number, volumePrecision: number): void
 }

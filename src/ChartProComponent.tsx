@@ -32,39 +32,6 @@ import {
 import { translateTimezone } from './widget/timezone-modal/data'
 
 import { SymbolInfo, Period, ChartProOptions, ChartPro } from './types'
-let klinecharts: Nullable<Chart> = null
-export function openRemoveOverlay () {
-  // console.log('调用');
-  // console.log(widget);
-  
-  klinecharts?.removeOverlay()
-}
-export function openCreateOverlay (overlayConfig:any) {
-  // console.log('调用');
-  // console.log(widget);
-  klinecharts?.createOverlay(overlayConfig)
-}
-export function openUpdateData (data:any) {
-  // console.log('调用');
-  // console.log(widget);
-  klinecharts?.updateData(data)
-}
-export function openSetPrecision (pricePrecision: number, volumePrecision: number) {
-  // console.log('调用');
-  // console.log(widget);
-  klinecharts?.setPriceVolumePrecision(pricePrecision,volumePrecision)
-  // console.log(widget);
-}
-export function openApplyNewData (data:any) {
-  // console.log('调用');
-  // console.log(widget);
-  klinecharts?.applyNewData(data)
-}
-export function openGetDataList () {
-  // console.log('调用');
-  // console.log(widget);
-  return klinecharts?.getDataList()
-}
 
 export interface ChartProComponentProps extends Required<Omit<ChartProOptions, 'container'>> {
   ref: (chart: ChartPro) => void
@@ -74,6 +41,7 @@ interface PrevSymbolPeriod {
   symbol: SymbolInfo
   period: Period
 }
+
 function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStack?: boolean, paneOptions?: PaneOptions): Nullable<string> {
   if (indicatorName === 'VOL') {
     paneOptions = { gap: { bottom: 2 }, ...paneOptions }
@@ -97,7 +65,6 @@ function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStac
   }, isStack, paneOptions) ?? null
 }
 
-
 const ChartProComponent: Component<ChartProComponentProps> = props => {
   let widgetRef: HTMLDivElement | undefined = undefined
   let widget: Nullable<Chart> = null
@@ -105,15 +72,11 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
   let priceUnitDom: HTMLElement
 
   let loading = false
-  const [rmOverlay, craOverlay] = createSignal()
-  const [udData] = createSignal()
-  const [spSion] = createSignal()
-  const [gdData] = createSignal()
-  const [anData] = createSignal()
+
   const [theme, setTheme] = createSignal(props.theme)
   const [styles, setStyles] = createSignal(props.styles)
   const [locale, setLocale] = createSignal(props.locale)
-  const [] = createSignal(props.theme)
+
   const [symbol, setSymbol] = createSignal(props.symbol)
   const [period, setPeriod] = createSignal(props.period)
   const [indicatorModalVisible, setIndicatorModalVisible] = createSignal(false)
@@ -150,13 +113,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     setSymbol,
     getSymbol: () => symbol(),
     setPeriod,
-    getPeriod: () => period(),
-    removeOverlay: () => rmOverlay(),
-    createOverlay: () => craOverlay(),
-    updateData: () => udData(),
-    applyNewData: () => anData(),
-    getDataList: () => gdData(),
-    setPrecision: () => spSion(),
+    getPeriod: () => period()
   })
 
   const documentResize = () => {
@@ -215,8 +172,6 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     return [from, to]
   }
 
-
-
   onMount(() => {
     window.addEventListener('resize', documentResize)
     widget = init(widgetRef!, {
@@ -255,7 +210,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
         }
       }
     })
-    klinecharts=widget
+
     if (widget) {
       const watermarkContainer = widget.getDom('candle_pane', DomPosition.Main)
       if (watermarkContainer) {
@@ -337,9 +292,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     })
   })
 
-
-
-onCleanup(() => {
+  onCleanup(() => {
     window.removeEventListener('resize', documentResize)
     dispose(widgetRef!)
   })
@@ -597,7 +550,6 @@ onCleanup(() => {
             setScreenshotUrl(url)
           }
         }}
-        
       />
       <div
         class="klinecharts-pro-content">

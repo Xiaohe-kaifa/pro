@@ -13,12 +13,13 @@
  */
 
 import { render } from 'solid-js/web'
-import { openRemoveOverlay,openCreateOverlay,openUpdateData, openApplyNewData, openGetDataList, openSetPrecision } from './ChartProComponent'
-import { utils, Nullable, DeepPartial, Styles, KLineData } from 'klinecharts'
+
+import { utils, Nullable, DeepPartial, Styles } from 'klinecharts'
+
 import ChartProComponent from './ChartProComponent'
 
 import { SymbolInfo, Period, ChartPro, ChartProOptions } from './types'
-//背景图标
+
 const Logo = (
   <svg class="logo" viewBox="0 0 80 92">
     <path d="M28.148808359375,51.7280513671875L22.963588359375,51.7280513671875C21.572648359375002,51.7280513671875,20.445068359375,52.6220613671875,20.445068359375,53.7248813671875L20.445068359375,72.3979013671875C20.445068359375,73.5007013671875,21.572648359375002,74.39470136718751,22.963588359375,74.39470136718751L33.926568359375,74.39470136718751C35.317468359375,74.39470136718751,36.445068359375,73.5007013671875,36.445068359375,72.3979013671875L36.445068359375,53.7248813671875C36.445068359375,52.6220613671875,35.317468359375,51.7280513671875,33.926568359375,51.7280513671875L28.741398359374998,51.7280513671875L28.741398359374998,46.2963223671875C28.741398359374998,46.1665793671875,28.608748359375,46.0614013671875,28.445108359375,46.0614013671875C28.281468359375,46.0614013671875,28.148808359375,46.1665793671875,28.148808359375,46.2963223671875L28.148808359375,51.7280513671875ZM28.741398359374998,74.3948013671875L28.741398359374998,79.82650136718749C28.741398359374998,79.9563013671875,28.608748359375,80.0614013671875,28.445108359375,80.0614013671875C28.281468359375,80.0614013671875,28.148808359375,79.9563013671875,28.148808359375,79.82650136718749L28.148808359375,74.3948013671875L28.741398359374998,74.3948013671875Z" />
@@ -78,32 +79,7 @@ export default class KLineChartPro implements ChartPro {
 
   private _chartApi: Nullable<ChartPro> = null
 
-  removeOverlay(): void {
-    // 实现 removeOverlay 方法
-    openRemoveOverlay();
-  }
-  setPrecision(pricePrecision: number, volumePrecision: number): void {
-    // 实现 createOverlay 方法
-    openSetPrecision(pricePrecision, volumePrecision);
-  }
 
-  createOverlay(overlayConfig:any): void {
-    // 实现 createOverlay 方法
-    openCreateOverlay(overlayConfig)
-  }
-  updateData(data:any): void {
-    // 实现 createOverlay 方法
-    openUpdateData(data)
-  }
-
-  applyNewData(data:any): void {
-    // 实现 createOverlay 方法
-    openApplyNewData(data)
-  }
-  getDataList(): KLineData[] | undefined {
-    // 实现 createOverlay 方法
-    return openGetDataList();
-  }
   setTheme (theme: string): void {
     this._container?.setAttribute('data-theme', theme)
     this._chartApi!.setTheme(theme)
