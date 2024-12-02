@@ -61,9 +61,9 @@ export default {
     { paramNameKey: 'params_2', precision: 0, min: 1, default: 9 }
   ],
   EMA: [
-    { paramNameKey: 'EMA1', precision: 0, min: 1, styleKey: 'lines[0].color' },
-    { paramNameKey: 'EMA2', precision: 0, min: 1, styleKey: 'lines[1].color' },
-    { paramNameKey: 'EMA3', precision: 0, min: 1, styleKey: 'lines[2].color' },
+    { paramNameKey: 'EMA1', precision: 0, min: 1, styleKey: 'lines[0].color', },
+    { paramNameKey: 'EMA2', precision: 0, min: 1, styleKey: 'lines[1].color' ,},
+    { paramNameKey: 'EMA3', precision: 0, min: 1, styleKey: 'lines[2].color',},
     { paramNameKey: 'EMA4', precision: 0, min: 1, styleKey: 'lines[3].color' },
     { paramNameKey: 'EMA5', precision: 0, min: 1, styleKey: 'lines[4].color' }
   ],
