@@ -30,8 +30,10 @@ export interface IndicatorSettingModalProps {
 }
 
 const IndicatorSettingModal: Component<IndicatorSettingModalProps> = props => {
+  
+  
   const [calcParams, setCalcParams] = createSignal(utils.clone(props.params.calcParams))
-
+  
   const getConfig: (name: string) => any[] = (name: string) => {
     // @ts-expect-error
     return data[name]
