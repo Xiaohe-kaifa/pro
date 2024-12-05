@@ -34,35 +34,21 @@ import { translateTimezone } from './widget/timezone-modal/data'
 import { SymbolInfo, Period, ChartProOptions, ChartPro } from './types'
 let klinecharts: Nullable<Chart> = null
 export function openRemoveOverlay (name:string) {
-  // console.log('调用');
-  // console.log(widget);
-  
   klinecharts?.removeOverlay(name)
 }
 export function openCreateOverlay (overlayConfig:any) {
-  // console.log('调用');
-  // console.log(widget);
   return klinecharts?.createOverlay(overlayConfig)
 }
 export function openUpdateData (data:any) {
-  // console.log('调用');
-  // console.log(widget);
   klinecharts?.updateData(data)
 }
 export function openSetPrecision (pricePrecision: number, volumePrecision: number) {
-  // console.log('调用');
-  // console.log(widget);
   klinecharts?.setPriceVolumePrecision(pricePrecision,volumePrecision)
-  // console.log(widget);
 }
 export function openApplyNewData (data:any) {
-  // console.log('调用');
-  // console.log(widget);
   klinecharts?.applyNewData(data)
 }
 export function openGetDataList () {
-  // console.log('调用');
-  // console.log(widget);
   return klinecharts?.getDataList()
 }
 
@@ -74,6 +60,7 @@ interface PrevSymbolPeriod {
   symbol: SymbolInfo
   period: Period
 }
+let isEMA=true
 function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStack?: boolean, paneOptions?: PaneOptions): Nullable<string> {
   if (indicatorName === 'VOL') {
     paneOptions = { gap: { bottom: 2 }, ...paneOptions }
@@ -83,10 +70,11 @@ function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStac
     // @ts-expect-error
     //更改EMA默认参数
     createTooltipDataSource: ({ indicator, defaultStyles }) => {
-      if(indicator.name === 'EMA'){
+      if(indicator.name === 'EMA'&&isEMA==true){
         indicator.calcParams[0] = 55,
         indicator.calcParams[1] = 120,
-        indicator.calcParams[2] = 250
+        indicator.calcParams[2] = 250,
+        isEMA=false
       }
       const icons = []
       if (indicator.visible) {
@@ -224,6 +212,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
 
 
   onMount(() => {
+    
     window.addEventListener('resize', documentResize)
     widget = init(widgetRef!, {
       customApi: {
@@ -341,6 +330,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
         }
       }
     })
+    
   })
 
 

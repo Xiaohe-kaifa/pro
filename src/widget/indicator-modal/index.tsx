@@ -36,7 +36,6 @@ export interface IndicatorModalProps {
 }
 
 const IndicatorModal: Component<IndicatorModalProps> = props => {
-
   return (
     <Modal
       title={i18n('indicator', props.locale)}
