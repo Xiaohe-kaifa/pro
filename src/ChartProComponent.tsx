@@ -16,7 +16,9 @@ import { createSignal, createEffect, onMount, Show, onCleanup, startTransition, 
 
 import {
   init, dispose, utils, Nullable, Chart, OverlayMode, Styles,
-  TooltipIconPosition, ActionType, PaneOptions, Indicator, DomPosition, FormatDateType
+  TooltipIconPosition, ActionType, PaneOptions, Indicator, DomPosition, FormatDateType,
+  registerFigure,
+  registerOverlay
 } from 'klinecharts'
 
 import lodashSet from 'lodash/set'
@@ -95,7 +97,7 @@ function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStac
 const ChartProComponent: Component<ChartProComponentProps> = props => {
   let widgetRef: HTMLDivElement | undefined = undefined
   let widget: Nullable<Chart> = null
-
+  let isMeasureChange = false
   let priceUnitDom: HTMLElement
 
   let loading = false
@@ -270,7 +272,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       priceUnitDom.className = 'klinecharts-pro-price-unit'
       priceUnitContainer?.appendChild(priceUnitDom)
     }
-
+  
     mainIndicators().forEach(indicator => {
       createIndicator(widget, indicator, true, { id: 'candle_pane' })
     })
@@ -465,7 +467,11 @@ onCleanup(() => {
       }
     })
   })
-
+ 
+  const handleMeasureChange = (measure: boolean) => {
+    isMeasureChange = measure
+    // 处理测量工具状态变化的逻辑
+  };
   createEffect(() => {
     widget?.setLocale(locale())
   })
@@ -607,7 +613,10 @@ onCleanup(() => {
             onModeChange={mode => { widget?.overrideOverlay({ mode: mode as OverlayMode }) }}
             onLockChange={lock => { widget?.overrideOverlay({ lock }) }}
             onVisibleChange={visible => { widget?.overrideOverlay({ visible }) }}
-            onRemoveClick={(groupId) => { widget?.removeOverlay({ groupId }) }}/>
+            onRemoveClick={(groupId) => { widget?.removeOverlay({ groupId }) }}
+            onMeasureChange={(measure) =>{ handleMeasureChange( measure ) }} // 添加这一行
+            />
+            
         </Show>
         <div
           ref={widgetRef}

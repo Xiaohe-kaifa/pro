@@ -31,6 +31,7 @@ export interface DrawingBarProps {
   onLockChange: (lock: boolean) => void
   onVisibleChange: (visible: boolean) => void
   onRemoveClick: (groupId: string) => void
+  onMeasureChange: (measure: boolean) => void; // 新增 measure 回调
 }
 
 const GROUP_ID = 'drawing_tools'
@@ -73,11 +74,13 @@ const DrawingBar: Component<DrawingBarProps> = props => {
             class="item"
             tabIndex={0}
             onBlur={() => { setPopoverKey('') }}>
+            {/* 左边图标 */}
             <span
               style="width:32px;height:32px"
               onClick={() => { props.onDrawingItemClick({ groupId: GROUP_ID, name: item.icon, visible: visible(), lock: lock(), mode: mode() as OverlayMode }) }}>
               <Icon name={item.icon} />
             </span>
+            {/* 右边的拉框 */}
             <div
               class="icon-arrow"
               onClick={() => {
@@ -87,6 +90,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
                   setPopoverKey(item.key)
                 }
               }}>
+                {/* 右拉框的箭头 */}
               <svg
                 class={item.key === popoverKey() ? 'rotate' : ''}
                 viewBox="0 0 4 6">
@@ -99,9 +103,12 @@ const DrawingBar: Component<DrawingBarProps> = props => {
                   {
                     item.list.map(data => (
                       <li
+                      // 点击选中拉框的某个图形
                         onClick={() => {
+                          // 设置选中的图形
                           item.setter(data.key)
                           props.onDrawingItemClick({ name: data.key, lock: lock(), mode: mode() as OverlayMode })
+                          // 关闭弹出框
                           setPopoverKey('')
                         }}>
                         <Icon name={data.key}/>
@@ -191,10 +198,10 @@ const DrawingBar: Component<DrawingBarProps> = props => {
         <span
           style="width:32px;height:32px"
           onClick={() => {
-            const currentLock = !measureIcon()
+            const currentMeasure = !measureIcon()
             //功能区
-            setMeasure(currentLock)
-            props.onLockChange(currentLock)
+            setMeasure(currentMeasure)
+            props.onMeasureChange(currentMeasure)
           }}>
           {
             measureIcon() ? <Icon name="strong_measure"/> : <Icon name="weak_measure" />
