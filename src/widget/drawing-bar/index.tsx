@@ -43,6 +43,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
   const [waveIcon, setWaveIcon] = createSignal('xabcd')
 
   const [modeIcon, setModeIcon] = createSignal('weak_magnet')
+  const [measureIcon, setMeasure] = createSignal(false)
   const [mode, setMode] = createSignal('normal')
 
   const [lock, setLock] = createSignal(false)
@@ -182,6 +183,21 @@ const DrawingBar: Component<DrawingBarProps> = props => {
           }}>
           {
             lock() ? <Icon name="lock"/> : <Icon name="unlock" />
+          }
+        </span>
+      </div>
+      <div
+        class="item">
+        <span
+          style="width:32px;height:32px"
+          onClick={() => {
+            const currentLock = !measureIcon()
+            //功能区
+            setMeasure(currentLock)
+            props.onLockChange(currentLock)
+          }}>
+          {
+            measureIcon() ? <Icon name="strong_measure"/> : <Icon name="weak_measure" />
           }
         </span>
       </div>

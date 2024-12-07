@@ -53,7 +53,8 @@ import invisible from './invisible'
 
 import lock from './lock'
 import unlock from './unlock'
-
+import weakMeasure from './weakMeasure'
+import strongMeasure from './strongMeasure'
 import remove from './remove'
 
 import type { SelectDataSourceItem } from '../../../component'
@@ -93,6 +94,8 @@ export const mapping = {
   xabcd,
   weak_magnet: weakMagnet,
   strong_magnet: strongMagnet,
+  weak_measure: weakMeasure,
+  strong_measure: strongMeasure,
   lock,
   unlock,
   visible,
