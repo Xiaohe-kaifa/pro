@@ -468,10 +468,6 @@ onCleanup(() => {
     })
   })
  
-  const handleMeasureChange = (measure: boolean) => {
-    isMeasureChange = measure
-    // 处理测量工具状态变化的逻辑
-  };
   createEffect(() => {
     widget?.setLocale(locale())
   })
@@ -614,7 +610,6 @@ onCleanup(() => {
             onLockChange={lock => { widget?.overrideOverlay({ lock }) }}
             onVisibleChange={visible => { widget?.overrideOverlay({ visible }) }}
             onRemoveClick={(groupId) => { widget?.removeOverlay({ groupId }) }}
-            onMeasureChange={(measure) =>{ handleMeasureChange( measure ) }} // 添加这一行
             />
             
         </Show>

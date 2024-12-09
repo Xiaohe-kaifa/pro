@@ -31,7 +31,6 @@ export interface DrawingBarProps {
   onLockChange: (lock: boolean) => void
   onVisibleChange: (visible: boolean) => void
   onRemoveClick: (groupId: string) => void
-  onMeasureChange: (measure: boolean) => void; // 新增 measure 回调
 }
 
 const GROUP_ID = 'drawing_tools'
@@ -53,13 +52,15 @@ const DrawingBar: Component<DrawingBarProps> = props => {
 
   const [popoverKey, setPopoverKey] = createSignal('')
 
+  // 创建图标数组
   const overlays = createMemo(() => {
     return [
       { key: 'singleLine', icon: singleLineIcon(), list: createSingleLineOptions(props.locale), setter: setSingleLineIcon },
       { key: 'moreLine', icon: moreLineIcon(), list: createMoreLineOptions(props.locale), setter: setMoreLineIcon },
       { key: 'polygon', icon: polygonIcon(), list: createPolygonOptions(props.locale), setter: setPolygonIcon },
       { key: 'fibonacci', icon: fibonacciIcon(), list: createFibonacciOptions(props.locale), setter: setFibonacciIcon },
-      { key: 'wave', icon: waveIcon(), list: createWaveOptions(props.locale), setter: setWaveIcon }
+      { key: 'wave', icon: waveIcon(), list: createWaveOptions(props.locale), setter: setWaveIcon },
+      
     ]
   })
 
@@ -69,6 +70,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
     <div
       class="klinecharts-pro-drawing-bar">
       {
+        
         overlays().map(item => (
           <div
             class="item"
@@ -98,6 +100,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
               </svg>
             </div>
             {
+              //item是从创建图标数组中overlays函数获取
               item.key === popoverKey() && (
                 <List class="list">
                   {
@@ -107,6 +110,9 @@ const DrawingBar: Component<DrawingBarProps> = props => {
                         onClick={() => {
                           // 设置选中的图形
                           item.setter(data.key)
+                          //功能逻辑
+
+                          // props是接口的属性
                           props.onDrawingItemClick({ name: data.key, lock: lock(), mode: mode() as OverlayMode })
                           // 关闭弹出框
                           setPopoverKey('')
@@ -201,7 +207,9 @@ const DrawingBar: Component<DrawingBarProps> = props => {
             const currentMeasure = !measureIcon()
             //功能区
             setMeasure(currentMeasure)
-            props.onMeasureChange(currentMeasure)
+            if (currentMeasure) {
+              props.onDrawingItemClick({name: 'measure', lock: false, mode: 'normal' as OverlayMode})
+            }
           }}>
           {
             measureIcon() ? <Icon name="strong_measure"/> : <Icon name="weak_measure" />
