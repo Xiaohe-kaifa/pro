@@ -111,7 +111,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
                           // 设置选中的图形
                           item.setter(data.key)
                           //功能逻辑
-
+                          // console.log(item);
                           // props是接口的属性
                           props.onDrawingItemClick({ name: data.key, lock: lock(), mode: mode() as OverlayMode })
                           // 关闭弹出框

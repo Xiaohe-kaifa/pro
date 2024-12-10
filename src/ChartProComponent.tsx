@@ -13,7 +13,6 @@
  */
 
 import { createSignal, createEffect, onMount, Show, onCleanup, startTransition, Component } from 'solid-js'
-
 import {
   init, dispose, utils, Nullable, Chart, OverlayMode, Styles,
   TooltipIconPosition, ActionType, PaneOptions, Indicator, DomPosition, FormatDateType,
@@ -35,6 +34,10 @@ import { translateTimezone } from './widget/timezone-modal/data'
 
 import { SymbolInfo, Period, ChartProOptions, ChartPro } from './types'
 let klinecharts: Nullable<Chart> = null
+
+export function getKlineData() {
+  return klinecharts?.getDataList()
+}
 export function openRemoveOverlay (name:string) {
   klinecharts?.removeOverlay(name)
 }
