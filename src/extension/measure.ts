@@ -2,7 +2,7 @@
 
 import { OverlayTemplate, utils } from 'klinecharts'
 import { getRotateCoordinate } from './utils'
-import { getKlineData } from '../ChartProComponent';
+import { getKlineData,getKlineIndex } from '../ChartProComponent';
 
 const measure: OverlayTemplate = {
   name: 'measure',
@@ -16,7 +16,6 @@ const measure: OverlayTemplate = {
     }
   },
   createPointFigures: ({ coordinates  }) => {
-    const klineData = getKlineData();
     if (coordinates.length > 1) {
       const start = coordinates[0];
       const end = coordinates[1];
@@ -25,6 +24,43 @@ const measure: OverlayTemplate = {
       if (end.y < start.y) {
         color = 'rgba(0, 0, 255, 0.15)'; // 鼠标往上拖动时变为透明蓝色
         lineColor = 'rgba(0, 0, 255, 0.8)';
+
+      }
+      const startDataResult = getKlineIndex(
+        [{ x: start.x, y: start.y }],
+        { paneId: 'candle_pane', absolute: false }
+      );
+      const endDataResult = getKlineIndex(
+        [{ x: end.x, y: end.y }],
+        { paneId: 'candle_pane', absolute: false }
+      );
+   
+      // 确保 endDataResult 是一个数组且不为空
+      const endData = Array.isArray(endDataResult) && endDataResult.length > 0 ? endDataResult[0] : undefined;
+      // 确保 endDataResult 是一个数组且不为空
+      const startData = Array.isArray(startDataResult) && startDataResult.length > 0 ? startDataResult[0] : undefined;
+      const numberIndex = (Number(endData?.dataIndex)-Number(startData?.dataIndex)+1);
+      // 假设 startData 和 endData 已经正确获取
+      
+      const value = (Number(endData?.value) - Number(startData?.value)).toFixed(2)
+      
+      const startTime = startData?.timestamp;
+      const endTime = endData?.timestamp;
+      let timeDisplay: any;
+      if (startTime !== undefined && endTime !== undefined) {
+        const timeDifference = endTime - startTime; // 时间差（毫秒）
+        const minutes = timeDifference / 1000 / 60; // 转换为分钟
+        if (minutes >= 1440 || minutes<=-1440) { // 1440分钟等于24小时
+          const days = minutes / 1440;
+          timeDisplay = `${Math.abs(Number(days.toFixed(2)))} 天`;
+        }
+        else if (minutes >= 60 || minutes<=-60) {
+          const hours = minutes / 60;
+          timeDisplay = `${Math.abs(Number(hours.toFixed(2))) } 小时`;
+        } else {
+          timeDisplay = `${Math.abs(Number(minutes.toFixed(0)))} 分钟`;
+        }
+      } else {
       }
       // 计算矩形的中心位置
       const centerX = (start.x + end.x) / 2;        
@@ -47,7 +83,7 @@ const measure: OverlayTemplate = {
       const verticalArrow = createArrow(verticalStart, verticalEnd, lineColor);
       // 文本标注
       
-      const textContent = `-9.72(%)  4根K线,4小时 `;
+      const textContent = `${value}(%)  ${Math.abs(numberIndex)}根K线,${timeDisplay} `;
       const textWidth = getTextWidth(textContent, 12); // 假设getTextWidth是一个计算文本宽度的函数
 
       // 计算文本的起始x坐标，使其居中对齐

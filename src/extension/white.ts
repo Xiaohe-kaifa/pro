@@ -1,6 +1,6 @@
 import { OverlayTemplate, utils } from 'klinecharts';
 import { getRotateCoordinate} from './utils';
-import { getKlineData } from '../ChartProComponent';
+import { getKlineData,getKlineIndex } from '../ChartProComponent';
 const white: OverlayTemplate = {
   name: 'white',
   totalStep: 3,
@@ -11,11 +11,19 @@ const white: OverlayTemplate = {
     polygon: {}
   },
   createPointFigures: ({ coordinates }) => {
-    const klineData = getKlineData();
+    
+    
+    
+    
     if (coordinates.length > 1) {
       const start = coordinates[0];
       const end = coordinates[1];
-
+      // 获取起点和终点的数据索引
+      
+      
+      
+      
+      
       // 根据起点和终点的y坐标决定颜色
       let colorTop = 'rgba(0, 255, 0, 0.15)'; // 青色透明
       let colorBottom = 'rgba(255, 0, 0, 0.15)'; // 红色透明

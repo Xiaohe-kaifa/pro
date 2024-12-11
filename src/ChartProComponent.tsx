@@ -11,7 +11,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { createSignal, createEffect, onMount, Show, onCleanup, startTransition, Component } from 'solid-js'
 import {
   init, dispose, utils, Nullable, Chart, OverlayMode, Styles,
@@ -37,6 +36,9 @@ let klinecharts: Nullable<Chart> = null
 
 export function getKlineData() {
   return klinecharts?.getDataList()
+}
+export function getKlineIndex(x: any,y: any) {
+  return klinecharts?.convertFromPixel(x,y)
 }
 export function openRemoveOverlay (name:string) {
   klinecharts?.removeOverlay(name)
