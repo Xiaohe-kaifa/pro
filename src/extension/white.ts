@@ -1,6 +1,6 @@
 import { OverlayTemplate, utils } from 'klinecharts';
 import { getRotateCoordinate} from './utils';
-import { getKlineData,getKlineIndex } from '../ChartProComponent';
+import { getKlineData,getKlineIndex, setKlineIndex } from '../ChartProComponent';
 const white: OverlayTemplate = {
   name: 'white',
   totalStep: 3,
@@ -19,7 +19,37 @@ const white: OverlayTemplate = {
       const start = coordinates[0];
       const end = coordinates[1];
       // 获取起点和终点的数据索引
-      
+      const startDataResult = getKlineIndex(
+        [{ x: start.x, y: start.y }],
+        { paneId: 'candle_pane', absolute: false }
+      );
+      const endDataResult = getKlineIndex(
+        [{ x: end.x, y: end.y }],
+        { paneId: 'candle_pane', absolute: false }
+      );
+      // 确保 endDataResult 是一个数组且不为空
+      const endDataIndex = Array.isArray(startDataResult) && startDataResult.length > 0 ? startDataResult[0] : undefined;
+      // 确保 endDataResult 是一个数组且不为空
+      const startDataIndex = Array.isArray(endDataResult) && endDataResult.length > 0 ? endDataResult[0] : undefined;
+
+      const KLineData = getKlineData();
+      if (KLineData && endDataIndex?.dataIndex !== undefined) {
+        const trueIndex = setKlineIndex(
+          {
+            dataIndex: endDataIndex.dataIndex,
+            timestamp: endDataIndex.timestamp,
+            value: KLineData[endDataIndex.dataIndex].close
+          },
+          { paneId: 'candle_pane', absolute: false }
+          )
+          if (trueIndex && !Array.isArray(trueIndex)) {
+            start.x=trueIndex.x ?? start.x;
+            start.y=trueIndex.y ?? start.y;
+          }
+          
+      } else {
+        console.log('KLineData 或 startData.dataIndex 为 undefined');
+      }
       
       
       

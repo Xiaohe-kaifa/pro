@@ -2,7 +2,7 @@
 
 import { OverlayTemplate, utils } from 'klinecharts'
 import { getRotateCoordinate } from './utils'
-import { getKlineData,getKlineIndex } from '../ChartProComponent';
+import { getKlineData,getKlineIndex,setKlineIndex } from '../ChartProComponent';
 
 const measure: OverlayTemplate = {
   name: 'measure',
@@ -19,13 +19,6 @@ const measure: OverlayTemplate = {
     if (coordinates.length > 1) {
       const start = coordinates[0];
       const end = coordinates[1];
-      let color = 'rgba(255, 0, 0, 0.15)'; // 默认透明红色
-      let lineColor = 'rgba(255, 0, 0, 0.8)'; // 默认透明红色
-      if (end.y < start.y) {
-        color = 'rgba(0, 0, 255, 0.15)'; // 鼠标往上拖动时变为透明蓝色
-        lineColor = 'rgba(0, 0, 255, 0.8)';
-
-      }
       const startDataResult = getKlineIndex(
         [{ x: start.x, y: start.y }],
         { paneId: 'candle_pane', absolute: false }
@@ -34,18 +27,55 @@ const measure: OverlayTemplate = {
         [{ x: end.x, y: end.y }],
         { paneId: 'candle_pane', absolute: false }
       );
-   
       // 确保 endDataResult 是一个数组且不为空
-      const endData = Array.isArray(endDataResult) && endDataResult.length > 0 ? endDataResult[0] : undefined;
+      const endDataIndex = Array.isArray(startDataResult) && startDataResult.length > 0 ? startDataResult[0] : undefined;
       // 确保 endDataResult 是一个数组且不为空
-      const startData = Array.isArray(startDataResult) && startDataResult.length > 0 ? startDataResult[0] : undefined;
+      const startDataIndex = Array.isArray(endDataResult) && endDataResult.length > 0 ? endDataResult[0] : undefined;
+
+      const KLineData = getKlineData();
+      if (KLineData && endDataIndex?.dataIndex !== undefined) {
+        const trueIndex = setKlineIndex(
+          {
+            dataIndex: endDataIndex.dataIndex,
+            timestamp: endDataIndex.timestamp,
+            value: KLineData[endDataIndex.dataIndex].close
+          },
+          { paneId: 'candle_pane', absolute: false }
+          )
+          if (trueIndex && !Array.isArray(trueIndex)) {
+            start.x=trueIndex.x ?? start.x;
+            start.y=trueIndex.y ?? start.y;
+          }
+          
+      } else {
+        console.log('KLineData 或 startData.dataIndex 为 undefined');
+      }
+      let color = 'rgba(255, 0, 0, 0.15)'; // 默认透明红色
+      let lineColor = 'rgba(255, 0, 0, 0.8)'; // 默认透明红色
+      if (end.y < start.y) {
+        color = 'rgba(0, 0, 255, 0.15)'; // 鼠标往上拖动时变为透明蓝色
+        lineColor = 'rgba(0, 0, 255, 0.8)';
+      }
+      const startDataResultTrue = getKlineIndex(
+        [{ x: start.x, y: start.y }],
+        { paneId: 'candle_pane', absolute: false }
+      );
+      const endDataResultTrue = getKlineIndex(
+        [{ x: end.x, y: end.y }],
+        { paneId: 'candle_pane', absolute: false }
+      );
+      // 确保 endDataResult 是一个数组且不为空
+      const endData = Array.isArray(endDataResultTrue) && endDataResultTrue.length > 0 ? endDataResultTrue[0] : undefined;
+      // 确保 endDataResult 是一个数组且不为空
+      const startData = Array.isArray(startDataResultTrue) && startDataResultTrue.length > 0 ? startDataResultTrue[0] : undefined;
       const numberIndex = (Number(endData?.dataIndex)-Number(startData?.dataIndex)+1);
       // 假设 startData 和 endData 已经正确获取
-      
       const value = (Number(endData?.value) - Number(startData?.value)).toFixed(2)
-      
+      const percent = (((Number(endData?.value) - Number(startData?.value))/Number(startData?.value))*100).toFixed(2)
       const startTime = startData?.timestamp;
       const endTime = endData?.timestamp;
+      
+
       let timeDisplay: any;
       if (startTime !== undefined && endTime !== undefined) {
         const timeDifference = endTime - startTime; // 时间差（毫秒）
@@ -83,7 +113,7 @@ const measure: OverlayTemplate = {
       const verticalArrow = createArrow(verticalStart, verticalEnd, lineColor);
       // 文本标注
       
-      const textContent = `${value}(%)  ${Math.abs(numberIndex)}根K线,${timeDisplay} `;
+      const textContent = `${value}(${percent}%)  ${Math.abs(numberIndex)}根K线,${timeDisplay} `;
       const textWidth = getTextWidth(textContent, 12); // 假设getTextWidth是一个计算文本宽度的函数
 
       // 计算文本的起始x坐标，使其居中对齐

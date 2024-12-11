@@ -33,7 +33,9 @@ import { translateTimezone } from './widget/timezone-modal/data'
 
 import { SymbolInfo, Period, ChartProOptions, ChartPro } from './types'
 let klinecharts: Nullable<Chart> = null
-
+export function setKlineIndex(value:any,finder:any) {
+  return klinecharts?.convertToPixel(value,finder)
+}
 export function getKlineData() {
   return klinecharts?.getDataList()
 }
