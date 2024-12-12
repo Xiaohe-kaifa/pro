@@ -65,7 +65,8 @@ const whiteUp: OverlayTemplate = {
       // 确保 endDataResult 是一个数组且不为空
       const startData = Array.isArray(startDataResultTrue) && startDataResultTrue.length > 0 ? startDataResultTrue[0] : undefined;
       const value = startData?.value?.toFixed(2)
-      const percent = (((Number(endData?.value) - Number(startData?.value))/Number(startData?.value))*100).toFixed(2)
+      
+      const percent = Math.abs((((Number(endData?.value) - Number(startData?.value))/Number(startData?.value))*100)).toFixed(2)
       // 根据起点和终点的y坐标决定颜色
       let colorTop = 'rgba(0, 255, 0, 0.15)'; // 青色透明
       let colorBottom = 'rgba(255, 0, 0, 0.15)'; // 红色透明
@@ -83,23 +84,29 @@ const whiteUp: OverlayTemplate = {
       let symmetricTextY=0
       
       if (start.y < end.y) {
+        //往下的
+        const endValueUp = (Number(startData?.value)+(Number(startData?.value)-Number(endData?.value))).toFixed(2)
+        const endValueDown =endData?.value?.toFixed(2)
         // 对称矩形的文本标注
-        symmetricTextContent = `止盈目标价:${value}(止盈空间:${percent}%) `;
+        symmetricTextContent = `止盈目标价:${endValueUp}(止盈空间:${percent}%) `;
         symmetricTextWidth = getTextWidth(symmetricTextContent, 12);
         symmetricTextX = centerX - symmetricTextWidth / 2;
         [colorTop, colorBottom] = [colorBottom, colorTop];
         // 计算矩形底部的 y 坐标
         bottomY = Math.max(start.y, end.y);
-
+        
       // 文本标注
-        textContent = `止损价格:${value}(止损空间:-${percent}%) `;
+        textContent = `止损价格:${endValueDown}(止损空间:-${percent}%) `;
         textWidth = getTextWidth(textContent, 12); // 假设getTextWidth是一个计算文本宽度的函数
 
       // 计算文本的起始x坐标，使其居中对齐
         textX = centerX - textWidth / 2;
       }else{
+        //往上的
+        const endValueUp = endData?.value?.toFixed(2) 
+        const endValueDown =(Number(startData?.value)-(Number(endData?.value)-Number(startData?.value))).toFixed(2)
          // 对称矩形的文本标注
-         symmetricTextContent = `止盈目标价:${value}(止盈空间:${percent}%) `;
+         symmetricTextContent = `止盈目标价:${endValueUp}(止盈空间:${percent}%) `;
          symmetricTextWidth = getTextWidth(symmetricTextContent, 12);
          symmetricTextX = centerX - symmetricTextWidth / 2;
          symmetricTextY = end.y
@@ -109,7 +116,7 @@ const whiteUp: OverlayTemplate = {
          bottomY = end.y-2*(end.y-start.y);
  
          // 文本标注
-         textContent = `止损价格:${value}(止损空间:-${percent}%) `;
+         textContent = `止损价格:${endValueDown}(止损空间:-${percent}%) `;
          textWidth = getTextWidth(textContent, 12); // 假设getTextWidth是一个计算文本宽度的函数
  
          // 计算文本的起始x坐标，使其居中对齐
@@ -151,7 +158,7 @@ const whiteUp: OverlayTemplate = {
       };
     
       // 新增的中间文本
-    const middleTextContent = `开多点位:  盈亏比:1`;
+    const middleTextContent = `开多点位:${value}  盈亏比:1`;
     const middleTextWidth = getTextWidth(middleTextContent, 12);
     const middleTextX = centerX - middleTextWidth / 2;
     const middleText = {
