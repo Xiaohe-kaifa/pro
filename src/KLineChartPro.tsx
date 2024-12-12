@@ -13,7 +13,7 @@
  */
 
 import { render } from 'solid-js/web'
-import { openRemoveOverlay,openCreateOverlay,openUpdateData, openApplyNewData, openGetDataList, openSetPrecision } from './ChartProComponent'
+import { openRemoveOverlay,openCreateOverlay,openUpdateData, openApplyNewData, openGetDataList, openSetPrecision, openRegisterOverlay, setKlineIndex, getKlineIndex } from './ChartProComponent'
 import { utils, Nullable, DeepPartial, Styles, KLineData } from 'klinecharts'
 import ChartProComponent from './ChartProComponent'
 
@@ -78,6 +78,14 @@ export default class KLineChartPro implements ChartPro {
 
   private _chartApi: Nullable<ChartPro> = null
 
+  setKlineIndex(value:any,finder:any) {
+    // 实现 removeOverlay 方法
+    return setKlineIndex(value,finder);
+  }
+  getKlineIndex(x:any,y:any) {
+    // 实现 removeOverlay 方法
+    return getKlineIndex(x,y);
+  }
   removeOverlay(name:string): void {
     // 实现 removeOverlay 方法
     openRemoveOverlay(name);
@@ -86,7 +94,9 @@ export default class KLineChartPro implements ChartPro {
     // 实现 createOverlay 方法
     openSetPrecision(pricePrecision, volumePrecision);
   }
-
+  setRegisterOverlay(overlay:any){
+    openRegisterOverlay(overlay)
+  }
   createOverlay(overlayConfig:any): any {
     // 实现 createOverlay 方法
     return openCreateOverlay(overlayConfig)

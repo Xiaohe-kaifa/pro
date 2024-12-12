@@ -1,5 +1,5 @@
 import arrow from './arrow'
-import whiteUp from './whiteUp'
+
 import circle from './circle'
 import rect from './rect'
 import parallelogram from './parallelogram'
@@ -17,10 +17,10 @@ import anyWaves from './anyWaves'
 import abcd from './abcd'
 import xabcd from './xabcd'
 import measure from './measure'
-import whiteDown from './whiteDown'
+
 
 const overlays = [
-  arrow,measure,whiteUp,whiteDown,
+  arrow,measure,
   circle, rect, triangle, parallelogram,
   fibonacciCircle, fibonacciSegment, fibonacciSpiral,
   fibonacciSpeedResistanceFan, fibonacciExtension, gannBox,

@@ -2,7 +2,7 @@
 
 import { OverlayTemplate, utils } from 'klinecharts'
 import { getRotateCoordinate } from './utils'
-import { getKlineData,getKlineIndex,setKlineIndex } from '../ChartProComponent';
+import { openGetDataList,getKlineIndex,setKlineIndex } from '../ChartProComponent';
 
 const measure: OverlayTemplate = {
   name: 'measure',
@@ -32,7 +32,7 @@ const measure: OverlayTemplate = {
       // 确保 endDataResult 是一个数组且不为空
       const startDataIndex = Array.isArray(endDataResult) && endDataResult.length > 0 ? endDataResult[0] : undefined;
 
-      const KLineData = getKlineData();
+      const KLineData = openGetDataList();
       if (KLineData && endDataIndex?.dataIndex !== undefined) {
         const trueIndex = setKlineIndex(
           {

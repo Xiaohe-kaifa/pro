@@ -33,11 +33,12 @@ import { translateTimezone } from './widget/timezone-modal/data'
 
 import { SymbolInfo, Period, ChartProOptions, ChartPro } from './types'
 let klinecharts: Nullable<Chart> = null
+
+export function openRegisterOverlay(overlay:any) {
+  return registerOverlay(overlay)
+}
 export function setKlineIndex(value:any,finder:any) {
   return klinecharts?.convertToPixel(value,finder)
-}
-export function getKlineData() {
-  return klinecharts?.getDataList()
 }
 export function getKlineIndex(x: any,y: any) {
   return klinecharts?.convertFromPixel(x,y)
@@ -109,7 +110,10 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
 
   let loading = false
   const [rmOverlay, craOverlay] = createSignal()
+  const [sKlineIndex] = createSignal()
+  const [gKlineIndex] = createSignal()
   const [udData] = createSignal()
+  const [sRegisterOverlay] = createSignal()
   const [spSion] = createSignal()
   const [gdData] = createSignal()
   const [anData] = createSignal()
@@ -160,6 +164,9 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     applyNewData: () => anData(),
     getDataList: () => gdData(),
     setPrecision: () => spSion(),
+    setRegisterOverlay: () => sRegisterOverlay(),
+    setKlineIndex: () => sKlineIndex(),
+    getKlineIndex: () => gKlineIndex(),
   })
 
   const documentResize = () => {
