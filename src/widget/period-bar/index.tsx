@@ -74,20 +74,17 @@ const PeriodBar: Component<PeriodBarProps> = props => {
         <img style={'width: 30px;'} src="https://coingod.club/static/images/favicon.ico" alt="logo" />
       </div>
       <Show when={props.symbol}>
-        <div
-          class="symbol"
-          onClick={props.onSymbolClick}>
+        <div class="symbol">
           <Show when={props.symbol.logo}>
-            <img alt="symbol" src={props.symbol.logo}/>
+            {/* 这里只做时间周期展示，不可切换 */}
+            <img alt="symbol" src={props.symbol.logo} />
           </Show>
-          <span>{props.symbol.shortName ?? props.symbol.name ?? props.symbol.ticker}</span>
+          <span  >{props.symbol.shortName ?? props.symbol.name ?? props.symbol.ticker}</span>
         </div>
       </Show>
       {
         props.periods.map(p => (
-          <span
-            class={`item period ${p.text === props.period.text ? 'selected' : ''}`}
-            onClick={() => { props.onPeriodChange(p) }}>
+          <span style={{color: p.text === props.period.text ? '' : 'rgb(160, 158, 158)'}} class={`item period ${p.text === props.period.text ? 'selected' : ''}`}>
             {p.text}
           </span>
         ))
