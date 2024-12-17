@@ -44,7 +44,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
 
   const [modeIcon, setModeIcon] = createSignal('weak_magnet')
   const [measureIcon, setMeasure] = createSignal(false)
-  const [mode, setMode] = createSignal('normal')
+  const [mode, setMode] = createSignal('weak_magnet')
 
   const [lock, setLock] = createSignal(false)
 
