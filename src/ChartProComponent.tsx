@@ -16,7 +16,8 @@ import {
   init, dispose, utils, Nullable, Chart, OverlayMode, Styles,
   TooltipIconPosition, ActionType, PaneOptions, Indicator, DomPosition, FormatDateType,
   registerFigure,
-  registerOverlay
+  registerOverlay,
+  registerIndicator
 } from 'klinecharts'
 
 import lodashSet from 'lodash/set'
@@ -36,6 +37,9 @@ let klinecharts: Nullable<Chart> = null
 
 export function openRegisterOverlay(overlay:any) {
   return registerOverlay(overlay)
+}
+export function openRegisterIndicator(indicator:any) {
+  return registerIndicator(indicator)
 }
 export function setKlineIndex(value:any,finder:any) {
   return klinecharts?.convertToPixel(value,finder)
@@ -114,6 +118,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
   const [gKlineIndex] = createSignal()
   const [udData] = createSignal()
   const [sRegisterOverlay] = createSignal()
+  const [sRegisterIndicator] = createSignal()
   const [spSion] = createSignal()
   const [gdData] = createSignal()
   const [anData] = createSignal()
@@ -165,6 +170,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     getDataList: () => gdData(),
     setPrecision: () => spSion(),
     setRegisterOverlay: () => sRegisterOverlay(),
+    setRegisterIndicator: () => sRegisterIndicator(),
     setKlineIndex: () => sKlineIndex(),
     getKlineIndex: () => gKlineIndex(),
   })

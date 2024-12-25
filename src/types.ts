@@ -78,6 +78,7 @@ export interface ChartPro {
   getDataList(): void
   setPrecision(pricePrecision: number, volumePrecision: number): void
   setRegisterOverlay(overlay: object): any
+  setRegisterIndicator(indicator: object): any
   setKlineIndex(value:any,finder:any): any
   getKlineIndex(x:any,y:any): any
 }
