@@ -38,6 +38,9 @@ let klinecharts: Nullable<Chart> = null
 export function openRegisterOverlay(overlay:any) {
   return registerOverlay(overlay)
 }
+export function openCreateIndicator(name:any,isUp:any,canId:any) {
+  klinecharts?.createIndicator(name,isUp,canId)
+}
 export function openRegisterIndicator(indicator:any) {
   return registerIndicator(indicator)
 }
@@ -117,6 +120,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
   const [sKlineIndex] = createSignal()
   const [gKlineIndex] = createSignal()
   const [udData] = createSignal()
+  const [sCreateIndicator] = createSignal()
   const [sRegisterOverlay] = createSignal()
   const [sRegisterIndicator] = createSignal()
   const [spSion] = createSignal()
@@ -171,6 +175,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     setPrecision: () => spSion(),
     setRegisterOverlay: () => sRegisterOverlay(),
     setRegisterIndicator: () => sRegisterIndicator(),
+    setCreateIndicator : () => sCreateIndicator(),
     setKlineIndex: () => sKlineIndex(),
     getKlineIndex: () => gKlineIndex(),
   })

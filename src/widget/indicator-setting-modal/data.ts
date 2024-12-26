@@ -67,6 +67,9 @@ export default {
     { paramNameKey: 'EMA4', precision: 0, min: 1, styleKey: 'lines[3].color' },
     { paramNameKey: 'EMA5', precision: 0, min: 1, styleKey: 'lines[4].color' }
   ],
+  TD: [
+    
+  ],
   MTM: [
     { paramNameKey: 'params_1', precision: 0, min: 1, default: 12 },
     { paramNameKey: 'params_2', precision: 0, min: 1, default: 6 }
