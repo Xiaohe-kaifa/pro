@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//k线数据初始化
 import { KLineData } from 'klinecharts'
 
 import { Datafeed, SymbolInfo, Period, DatafeedSubscribeCallback } from './types'

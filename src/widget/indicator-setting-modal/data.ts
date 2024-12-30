@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//指标的默认参数
 export default {
   AO: [
     { paramNameKey: 'params_1', precision: 0, min: 1, default: 5 },

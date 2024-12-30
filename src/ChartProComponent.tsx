@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+//主体功能
 import { createSignal, createEffect, onMount, Show, onCleanup, startTransition, Component } from 'solid-js'
 import {
   init, dispose, utils, Nullable, Chart, OverlayMode, Styles,
@@ -322,6 +323,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
       }
       get()
     })
+    //新建指标三个小功能实例
     widget?.subscribeAction(ActionType.OnTooltipIconClick, (data) => {
       if (data.indicatorName) {
         switch (data.iconId) {
@@ -410,12 +412,13 @@ onCleanup(() => {
     widget?.setStyles({
       indicator: {
         tooltip: {
+          //左上角指标的三个小功能，眼睛，设置，关闭
           icons: [
             {
               id: 'visible',
               position: TooltipIconPosition.Middle,
               marginLeft: 8,
-              marginTop: 7,
+              marginTop: 3,
               marginRight: 0,
               marginBottom: 0,
               paddingLeft: 0,
@@ -434,7 +437,7 @@ onCleanup(() => {
               id: 'invisible',
               position: TooltipIconPosition.Middle,
               marginLeft: 8,
-              marginTop: 7,
+              marginTop: 3,
               marginRight: 0,
               marginBottom: 0,
               paddingLeft: 0,
@@ -453,7 +456,7 @@ onCleanup(() => {
               id: 'setting',
               position: TooltipIconPosition.Middle,
               marginLeft: 6,
-              marginTop: 7,
+              marginTop: 3,
               marginBottom: 0,
               marginRight: 0,
               paddingLeft: 0,
@@ -472,7 +475,7 @@ onCleanup(() => {
               id: 'close',
               position: TooltipIconPosition.Middle,
               marginLeft: 6,
-              marginTop: 7,
+              marginTop: 3,
               marginRight: 0,
               marginBottom: 0,
               paddingLeft: 0,
