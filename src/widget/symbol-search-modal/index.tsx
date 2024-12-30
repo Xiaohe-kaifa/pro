@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//搜索功能
 import { Component, createSignal, createResource, Show } from 'solid-js'
 
 import { Modal, List, Input } from '../../component'

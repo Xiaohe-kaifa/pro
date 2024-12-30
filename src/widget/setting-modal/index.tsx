@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//设置的弹框功能
 import { Component, createEffect, For, createSignal } from 'solid-js'
 import { Styles, utils, DeepPartial } from 'klinecharts'
 

@@ -11,7 +11,7 @@
  * See the License for the specific locale governing permissions and
  * limitations under the License.
  */
-
+//设置默认参数
 import i18n from '../../i18n'
 
 export function getOptions (locale: string) {

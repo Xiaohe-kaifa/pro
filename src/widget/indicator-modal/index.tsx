@@ -34,7 +34,7 @@ export interface IndicatorModalProps {
   onSubIndicatorChange: OnIndicatorChange
   onClose: () => void
 }
-
+//这里是顶上的点击指标后的功能
 const IndicatorModal: Component<IndicatorModalProps> = props => {
   return (
     <Modal

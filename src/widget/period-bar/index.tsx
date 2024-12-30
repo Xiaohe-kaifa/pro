@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//顶上周期以及功能按钮的显示
 import { Component, Show, createSignal, onMount, onCleanup } from 'solid-js'
 
 import { SymbolInfo, Period } from '../../types'

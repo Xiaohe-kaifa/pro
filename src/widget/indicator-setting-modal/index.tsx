@@ -38,7 +38,7 @@ const IndicatorSettingModal: Component<IndicatorSettingModalProps> = props => {
     // @ts-expect-error
     return data[name]
   }
-
+//这里是点击显示的指标的设置
   return (
     <Modal
       title={props.params.indicatorName}

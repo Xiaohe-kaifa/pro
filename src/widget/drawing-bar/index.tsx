@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//左边画图工具的功能
 import { Component, createMemo, createSignal } from 'solid-js'
 
 import { OverlayCreate, OverlayMode } from 'klinecharts'

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//截图功能
 import { Component } from 'solid-js'
 
 import { Modal } from '../../component'
