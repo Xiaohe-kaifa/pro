@@ -630,7 +630,8 @@ onCleanup(() => {
         <Show when={drawingBarVisible()}>
           <DrawingBar
             locale={props.locale}
-            onDrawingItemClick={overlay => { widget?.createOverlay(overlay) }}
+            onDrawingItemClick={overlay => {
+              widget?.createOverlay(overlay) }}
             onModeChange={mode => { widget?.overrideOverlay({ mode: mode as OverlayMode }) }}
             onLockChange={lock => { widget?.overrideOverlay({ lock }) }}
             onVisibleChange={visible => { widget?.overrideOverlay({ visible }) }}

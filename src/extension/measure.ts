@@ -3,11 +3,11 @@
 import { OverlayTemplate, utils } from 'klinecharts'
 import { getRotateCoordinate } from './utils'
 import { openGetDataList,getKlineIndex,setKlineIndex } from '../ChartProComponent';
-
+import { setMeasure } from '../widget/drawing-bar';
 const measure: OverlayTemplate = {
   name: 'measure',
   totalStep: 3,
-  needDefaultPointFigure: false,
+  needDefaultPointFigure: true,
   needDefaultXAxisFigure: true,
   needDefaultYAxisFigure: true,
   styles: {
@@ -15,7 +15,10 @@ const measure: OverlayTemplate = {
       
     }
   },
-  createPointFigures: ({ coordinates  }) => {
+  createPointFigures: ({ overlay, coordinates  }) => {
+    if(overlay.currentStep === 2){
+      setMeasure(false)
+    }
     if (coordinates.length > 1) {
       const start = coordinates[0];
       const end = coordinates[1];
@@ -42,10 +45,10 @@ const measure: OverlayTemplate = {
           },
           { paneId: 'candle_pane', absolute: false }
           )
-          if (trueIndex && !Array.isArray(trueIndex)) {
-            start.x=trueIndex.x ?? start.x;
-            start.y=trueIndex.y ?? start.y;
-          }
+          // if (trueIndex && !Array.isArray(trueIndex)) {
+          //   start.x=trueIndex.x ?? start.x;
+          //   start.y=trueIndex.y ?? start.y;
+          // }
           
       } else {
         console.log('KLineData 或 startData.dataIndex 为 undefined');
@@ -153,6 +156,7 @@ const measure: OverlayTemplate = {
     return [];
   }
 }
+
 // 创建箭头的辅助函数
 function createArrow(start: any, end: any, color: any) {
   const flag = end.x > start.x ? 0 : 1;

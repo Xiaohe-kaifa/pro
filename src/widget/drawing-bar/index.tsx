@@ -34,7 +34,8 @@ export interface DrawingBarProps {
 }
 
 const GROUP_ID = 'drawing_tools'
-
+let isMeasureStrong = false
+export const [measureIcon, setMeasure] = createSignal(false)
 const DrawingBar: Component<DrawingBarProps> = props => {
   const [singleLineIcon, setSingleLineIcon] = createSignal('horizontalStraightLine')
   const [moreLineIcon, setMoreLineIcon] = createSignal('priceChannelLine')
@@ -43,7 +44,7 @@ const DrawingBar: Component<DrawingBarProps> = props => {
   const [waveIcon, setWaveIcon] = createSignal('xabcd')
 
   const [modeIcon, setModeIcon] = createSignal('weak_magnet')
-  const [measureIcon, setMeasure] = createSignal(false)
+  
   const [mode, setMode] = createSignal('weak_magnet')
 
   const [lock, setLock] = createSignal(false)
@@ -204,12 +205,16 @@ const DrawingBar: Component<DrawingBarProps> = props => {
         <span
           style="width:32px;height:32px"
           onClick={() => {
+            
+            
             const currentMeasure = !measureIcon()
             //功能区
             setMeasure(currentMeasure)
+            
             if (currentMeasure) {
-              props.onDrawingItemClick({name: 'measure', lock: false, mode: 'normal' as OverlayMode})
+              props.onDrawingItemClick({name: 'measure', lock: lock(), mode: mode() as OverlayMode})
             }
+            
           }}>
           {
             measureIcon() ? <Icon name="strong_measure"/> : <Icon name="weak_measure" />
