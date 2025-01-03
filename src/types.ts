@@ -82,4 +82,5 @@ export interface ChartPro {
   setRegisterIndicator(indicator: object): any
   setKlineIndex(value:any,finder:any): any
   getKlineIndex(x:any,y:any): any
+  getDom(paneId:any,position:any): any
 }
