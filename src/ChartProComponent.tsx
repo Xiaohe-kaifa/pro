@@ -95,6 +95,10 @@ function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStac
         indicator.calcParams[0] = 55,
         indicator.calcParams[1] = 120,
         indicator.calcParams[2] = 250,
+        indicator.figures[0].title='EMA55：',
+        indicator.figures[1].title='EMA12：',
+        indicator.figures[2].title='EMA250：',
+
         isEMA=false
       }
       const icons = []
