@@ -51,6 +51,9 @@ export function openRegisterIndicator(indicator:any) {
 export function setKlineIndex(value:any,finder:any) {
   return klinecharts?.convertToPixel(value,finder)
 }
+export function getKlineBarSpace() {
+  return klinecharts?.getBarSpace()
+}
 export function getKlineIndex(x: any,y: any) {
   return klinecharts?.convertFromPixel(x,y)
 }
@@ -71,6 +74,7 @@ export function openApplyNewData (data:any) {
 }
 export function openGetDataList () {
   return klinecharts?.getDataList()
+  
 }
 
 export interface ChartProComponentProps extends Required<Omit<ChartProOptions, 'container'>> {

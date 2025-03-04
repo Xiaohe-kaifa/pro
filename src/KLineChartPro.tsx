@@ -14,7 +14,7 @@
 
 import { render } from 'solid-js/web'
 import { openRemoveOverlay,openCreateOverlay,openUpdateData, openApplyNewData, openGetDataList, openSetPrecision, openRegisterOverlay, setKlineIndex, getKlineIndex, openRegisterIndicator, openCreateIndicator, openGetDom } from './ChartProComponent'
-import { utils, Nullable, DeepPartial, Styles, KLineData } from 'klinecharts'
+import { utils, Nullable, DeepPartial, Styles, KLineData, OverlayTemplate } from 'klinecharts'
 import ChartProComponent from './ChartProComponent'
 
 import { SymbolInfo, Period, ChartPro, ChartProOptions } from './types'
@@ -28,6 +28,9 @@ const Logo = (
 )
 
 export default class KLineChartPro implements ChartPro {
+  static registerOverlay(measure: OverlayTemplate) {
+    throw new Error('Method not implemented.')
+  }
   constructor (options: ChartProOptions) {
     if (utils.isString(options.container)) {
       this._container = document.getElementById(options.container as string)

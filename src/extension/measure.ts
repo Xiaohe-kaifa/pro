@@ -16,6 +16,8 @@ const measure: OverlayTemplate = {
     }
   },
   createPointFigures: ({ overlay, coordinates  }) => {
+  
+    
     if(overlay.currentStep === 2){
       setMeasure(false)
     }
@@ -33,8 +35,6 @@ const measure: OverlayTemplate = {
       // 确保 endDataResult 是一个数组且不为空
       const endDataIndex = Array.isArray(startDataResult) && startDataResult.length > 0 ? startDataResult[0] : undefined;
       // 确保 endDataResult 是一个数组且不为空
-      const startDataIndex = Array.isArray(endDataResult) && endDataResult.length > 0 ? endDataResult[0] : undefined;
-
       const KLineData = openGetDataList();
       if (KLineData && endDataIndex?.dataIndex !== undefined) {
         const trueIndex = setKlineIndex(
@@ -67,33 +67,62 @@ const measure: OverlayTemplate = {
         [{ x: end.x, y: end.y }],
         { paneId: 'candle_pane', absolute: false }
       );
+      
+      
       // 确保 endDataResult 是一个数组且不为空
       const endData = Array.isArray(endDataResultTrue) && endDataResultTrue.length > 0 ? endDataResultTrue[0] : undefined;
       // 确保 endDataResult 是一个数组且不为空
       const startData = Array.isArray(startDataResultTrue) && startDataResultTrue.length > 0 ? startDataResultTrue[0] : undefined;
       const numberIndex = (Number(endData?.dataIndex)-Number(startData?.dataIndex)+1);
       // 假设 startData 和 endData 已经正确获取
-      const value = (Number(endData?.value) - Number(startData?.value)).toFixed(2)
+      const precision = Number(window.sessionStorage.getItem('precision'));
+      const value = (Number(endData?.value) - Number(startData?.value)).toFixed(precision)
       const percent = (((Number(endData?.value) - Number(startData?.value))/Number(startData?.value))*100).toFixed(2)
       const startTime = startData?.timestamp;
       const endTime = endData?.timestamp;
-      
-
       let timeDisplay: any;
-      if (startTime !== undefined && endTime !== undefined) {
-        const timeDifference = endTime - startTime; // 时间差（毫秒）
-        const minutes = timeDifference / 1000 / 60; // 转换为分钟
-        if (minutes >= 1440 || minutes<=-1440) { // 1440分钟等于24小时
-          const days = minutes / 1440;
-          timeDisplay = `${Math.abs(Number(days.toFixed(2)))} 天`;
+      
+      const period = window.sessionStorage.getItem('Period');
+      if (period) {
+        let totalMinutes = 0;
+
+        switch (period) {
+          case '1M':
+            totalMinutes = Math.abs(numberIndex) * 1;
+            break;
+          case '5M':
+            totalMinutes = Math.abs(numberIndex) * 5;
+            break;
+          case '15M':
+            totalMinutes = Math.abs(numberIndex) * 15;
+            break;
+          case '1H':
+            totalMinutes = Math.abs(numberIndex) * 60;
+            break;
+          case '4H':
+            totalMinutes = Math.abs(numberIndex) * 240;
+            break;
+          case '1D':
+            totalMinutes = Math.abs(numberIndex) * 1440;
+            break;
+          default:
+            totalMinutes = Math.abs(numberIndex);
+            break;
         }
-        else if (minutes >= 60 || minutes<=-60) {
-          const hours = minutes / 60;
-          timeDisplay = `${Math.abs(Number(hours.toFixed(2))) } 小时`;
+
+        if (totalMinutes >= 1440) {
+          const days = totalMinutes / 1440;
+          timeDisplay = `${Number(days.toFixed(2))} 天`;
+        } else if (totalMinutes >= 60) {
+          const hours = totalMinutes / 60;
+          timeDisplay = `${Number(hours.toFixed(2))} 小时`;
         } else {
-          timeDisplay = `${Math.abs(Number(minutes.toFixed(0)))} 分钟`;
+          timeDisplay = `${Math.abs(numberIndex)} 分钟`;
         }
+
+
       } else {
+        timeDisplay = `${Math.abs(numberIndex)} 根K线`;
       }
       // 计算矩形的中心位置
       const centerX = (start.x + end.x) / 2;        
