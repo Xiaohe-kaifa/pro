@@ -545,9 +545,11 @@ onCleanup(() => {
             if (data.added) {
               createIndicator(widget, data.name, true, { id: 'candle_pane' })
               newMainIndicators.push(data.name)
+              localStorage.setItem('newMainIndicators', JSON.stringify(newMainIndicators))
             } else {
               widget?.removeIndicator('candle_pane', data.name)
               newMainIndicators.splice(newMainIndicators.indexOf(data.name), 1)
+              localStorage.setItem('newMainIndicators', JSON.stringify(newMainIndicators))
             }
             setMainIndicators(newMainIndicators)
           }}
@@ -555,15 +557,18 @@ onCleanup(() => {
             const newSubIndicators = { ...subIndicators() }
             if (data.added) {
               const paneId = createIndicator(widget, data.name)
+              localStorage.setItem('subIndicators', JSON.stringify(newSubIndicators))
               if (paneId) {
                 // @ts-expect-error
                 newSubIndicators[data.name] = paneId
+                localStorage.setItem('subIndicators', JSON.stringify(Object.keys(newSubIndicators)))
               }
             } else {
               if (data.paneId) {
                 widget?.removeIndicator(data.paneId, data.name)
                 // @ts-expect-error
                 delete newSubIndicators[data.name]
+                localStorage.setItem('subIndicators', JSON.stringify(Object.keys(newSubIndicators)))
               }
             }
             setSubIndicators(newSubIndicators)
