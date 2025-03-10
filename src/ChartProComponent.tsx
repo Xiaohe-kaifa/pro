@@ -43,6 +43,15 @@ export function openGetDom(paneId:any,position:any) {
   return klinecharts?.getDom(paneId,position)
 }
 export function openCreateIndicator(name:any,isUp:any,canId:any) {
+  const newMainIndicators = localStorage.getItem("newMainIndicators");
+  if (newMainIndicators !== null) {
+    const parsedMainIndicators = JSON.parse(newMainIndicators);
+    // 检查 'TD' 是否在 parsedMainIndicators 中
+    if (!parsedMainIndicators.includes('TD')) {
+      return null; // 不创建指标
+    }
+    // 进一步处理 parsedMainIndicators
+  }
   klinecharts?.createIndicator(name,isUp,canId)
 }
 export function openRegisterIndicator(indicator:any) {
@@ -95,6 +104,7 @@ function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStac
     // @ts-expect-error
     //更改EMA默认参数
     createTooltipDataSource: ({ indicator, defaultStyles }) => {
+
       if(indicator.name === 'EMA'&&isEMA==true){
         indicator.calcParams[0] = 55,
         indicator.calcParams[1] = 120,
