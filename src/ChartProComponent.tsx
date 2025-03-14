@@ -104,15 +104,15 @@ function createIndicator (widget: Nullable<Chart>, indicatorName: string, isStac
     // @ts-expect-error
     //更改EMA默认参数
     createTooltipDataSource: ({ indicator, defaultStyles }) => {
-
       if(indicator.name === 'EMA'&&isEMA==true){
-        indicator.calcParams[0] = 55,
-        indicator.calcParams[1] = 120,
-        indicator.calcParams[2] = 250,
-        indicator.figures[0].title='EMA55：',
-        indicator.figures[1].title='EMA120：',
-        indicator.figures[2].title='EMA250：',
-
+        indicator.calcParams = [10,20,30,60,120]
+        indicator.figures=[
+          { key: "ema1", title: "EMA10：", type: "line" },
+          { key: "ema2", title: "EMA20：", type: "line" },
+          { key: "ema3", title: "EMA30：", type: "line" },
+          { key: "ema4", title: "EMA60：", type: "line" },
+          { key: "ema5", title: "EMA120：", type: "line" },
+        ]
         isEMA=false
       }
       const icons = []
