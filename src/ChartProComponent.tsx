@@ -66,6 +66,9 @@ export function getKlineBarSpace() {
 export function getKlineIndex(x: any,y: any) {
   return klinecharts?.convertFromPixel(x,y)
 }
+export function openGetSize() {
+  return klinecharts?.getSize()
+}
 export function openRemoveOverlay (name:string) {
   klinecharts?.removeOverlay(name)
 }
@@ -149,6 +152,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
   const [gdData] = createSignal()
   const [anData] = createSignal()
   const [gDom] = createSignal()
+  const [getSizeXY] = createSignal()
   const [theme, setTheme] = createSignal(props.theme)
   const [styles, setStyles] = createSignal(props.styles)
   const [locale, setLocale] = createSignal(props.locale)
@@ -198,6 +202,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     setPrecision: () => spSion(),
     setRegisterOverlay: () => sRegisterOverlay(),
     setRegisterIndicator: () => sRegisterIndicator(),
+    getSize: () => getSizeXY(),
     setCreateIndicator : () => sCreateIndicator(),
     setKlineIndex: () => sKlineIndex(),
     getKlineIndex: () => gKlineIndex(),

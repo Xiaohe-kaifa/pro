@@ -13,7 +13,7 @@
  */
 
 import { render } from 'solid-js/web'
-import { openRemoveOverlay,openCreateOverlay,openUpdateData, openApplyNewData, openGetDataList, openSetPrecision, openRegisterOverlay, setKlineIndex, getKlineIndex, openRegisterIndicator, openCreateIndicator, openGetDom } from './ChartProComponent'
+import { openRemoveOverlay,openCreateOverlay,openUpdateData, openApplyNewData, openGetDataList, openSetPrecision, openRegisterOverlay, setKlineIndex, getKlineIndex, openRegisterIndicator, openCreateIndicator, openGetDom, openGetSize } from './ChartProComponent'
 import { utils, Nullable, DeepPartial, Styles, KLineData, OverlayTemplate } from 'klinecharts'
 import ChartProComponent from './ChartProComponent'
 
@@ -110,6 +110,9 @@ export default class KLineChartPro implements ChartPro {
   }
   setRegisterIndicator(indicator:any){
     openRegisterIndicator(indicator)
+  }
+  getSize(){
+    return openGetSize()
   }
   createOverlay(overlayConfig:any): any {
     // 实现 createOverlay 方法
