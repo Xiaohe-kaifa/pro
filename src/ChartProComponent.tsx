@@ -141,6 +141,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
   let priceUnitDom: HTMLElement
 
   let loading = false
+  const [getBarSpace] = createSignal()
   const [rmOverlay, craOverlay] = createSignal()
   const [sKlineIndex] = createSignal()
   const [gKlineIndex] = createSignal()
@@ -207,6 +208,7 @@ const ChartProComponent: Component<ChartProComponentProps> = props => {
     setKlineIndex: () => sKlineIndex(),
     getKlineIndex: () => gKlineIndex(),
     getDom: () => gDom(),
+    getKlineBarSpace: () => getBarSpace()
   })
 
   const documentResize = () => {

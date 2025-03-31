@@ -84,4 +84,5 @@ export interface ChartPro {
   getKlineIndex(x:any,y:any): any
   getDom(paneId:any,position:any): any
   getSize(): any
+  getKlineBarSpace():any
 }
