@@ -59,7 +59,9 @@ const PeriodBar: Component<PeriodBarProps> = props => {
   return (
     <div
       ref={el => { ref = el }}
-      class="klinecharts-pro-period-bar">
+      class="klinecharts-pro-period-bar"
+      style={{display: 'flex',overflow: 'auto',"max-width": '50%',"white-space":  'nowrap'}}
+     >
       <div class='menu-container'>
         <svg
           class={props.spread ? '' : 'rotate'}

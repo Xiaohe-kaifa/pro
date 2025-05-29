@@ -69,7 +69,8 @@ const DrawingBar: Component<DrawingBarProps> = props => {
 
   return (
     <div
-      class="klinecharts-pro-drawing-bar">
+      class="klinecharts-pro-drawing-bar"
+      style="max-height: 100vh; overflow-y: auto;">
       {
         
         overlays().map(item => (
