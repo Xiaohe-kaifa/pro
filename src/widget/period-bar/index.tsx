@@ -116,11 +116,7 @@ const PeriodBar: Component<PeriodBarProps> = props => {
         </svg>
         <span>{i18n('screenshot', props.locale)}</span>
       </div>
-      <div
-        class='item tools'
-        >
-        
-      </div>
+      
     </div>
   )
 }
