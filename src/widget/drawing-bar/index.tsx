@@ -104,7 +104,16 @@ const DrawingBar: Component<DrawingBarProps> = props => {
             {
               //item是从创建图标数组中overlays函数获取
               item.key === popoverKey() && (
-                <List class="list">
+                <List class="list"
+                    style={{
+                    position: 'fixed',
+                    left: `${(event as MouseEvent).clientX}px`, // 明确类型并使用 event
+                    top: `${(event as MouseEvent).clientY}px`,
+                    'z-index': 9999,
+                    background: '#fff',
+                    border: '1px solid #ccc'
+                  }}
+                >
                   {
                     item.list.map(data => (
                       <li
@@ -168,7 +177,16 @@ const DrawingBar: Component<DrawingBarProps> = props => {
         </div>
         {
           popoverKey() === 'mode' && (
-            <List class="list">
+            <List class="list"
+            style={{
+                    position: 'fixed',
+                    left: `${(event as MouseEvent).clientX}px`, // 明确类型并使用 event
+                    top: `${(event as MouseEvent).clientY}px`,
+                    'z-index': 9999,
+                    background: '#fff',
+                    border: '1px solid #ccc'
+                  }}
+            >
               {
                 modes().map(data => (
                   <li
