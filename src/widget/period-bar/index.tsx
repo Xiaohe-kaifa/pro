@@ -73,7 +73,7 @@ const PeriodBar: Component<PeriodBarProps> = props => {
       <div
         class='item tools'
         >
-        <img style={'width: 30px;'} src="https://coingod.club/static/images/favicon.ico" alt="logo" />
+        <img style={'width: 30px;'} src="https://coingod.club/static/images/favicon.ico" alt="logo" onClick={() => window.location.href = '/'}  />
       </div>
       <Show when={props.symbol}>
         <div class="symbol">
